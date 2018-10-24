@@ -7,8 +7,31 @@
 //
 
 import UIKit
+import Alamofire
 
 class ViewController: UIViewController {
+    
+    let urlPeliculas = "http://www.omdbapi.com/?i=tt3896198&apikey=4da26f5f"
+    
+    @IBOutlet weak var txtPeliculas: UITextField!
+    @IBOutlet weak var lblTitulo: UILabel!
+    @IBOutlet weak var lblAño: UILabel!
+    @IBOutlet weak var lblRated: UILabel!
+    @IBOutlet weak var lblDuracion: UILabel!
+    @IBOutlet weak var lblGenero: UILabel!
+    @IBOutlet weak var Director: UILabel!
+    
+    @IBAction func doTapBuscar(_ sender: Any) {
+        Alamofire.request("\(urlPeliculas)").responseJSON { response in
+            //Diccionario Pelicula
+            if let dictPelicula = response.result.value as? NSDictionary {
+                
+            }
+        }
+    }
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -10,9 +10,6 @@ import UIKit
 import Alamofire
 
 class ViewController: UIViewController {
-    
-    let urlPeliculas = "http://www.omdbapi.com/?i=tt3896198&apikey=4da26f5f"
-    
     @IBOutlet weak var txtPeliculas: UITextField!
     @IBOutlet weak var lblTitulo: UILabel!
     @IBOutlet weak var lblAño: UILabel!
@@ -20,13 +17,22 @@ class ViewController: UIViewController {
     @IBOutlet weak var lblDuracion: UILabel!
     @IBOutlet weak var lblGenero: UILabel!
     @IBOutlet weak var Director: UILabel!
+    @IBOutlet weak var aiCargar: UIActivityIndicatorView!
+    
+    var urlPeliculas = "http://www.omdbapi.com/?i=tt3896198&apikey=4da26f5f"
+    var peliculas : String = ""
     
     @IBAction func doTapBuscar(_ sender: Any) {
-        Alamofire.request("\(urlPeliculas)").responseJSON { response in
-            //Diccionario Pelicula
-            if let dictPelicula = response.result.value as? NSDictionary {
-                
-            }
+        aiCargar.startAnimating()
+        peliculas = txtPeliculas.text!
+        
+        urlPeliculas = "http://www.omdbapi.com/?i=tt3896198&apikey=4da26f5f"
+        
+        Alamofire.request(urlPeliculas).responseJSON { response in
+            self.lblTitulo.text = ""
+            self.lblAño.text = ""
+            self.lblRated.text = ""
+            self.lblDuracion.text = ""
         }
     }
     

@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     
     var urlPeliculas = "http://www.omdbapi.com/?i=tt3896198&apikey=4da26f5f"
     var peliculas : String = ""
+    var encontrada : String = ""
     
     @IBAction func doTapBuscar(_ sender: Any) {
         aiCargar.startAnimating()
@@ -33,6 +34,39 @@ class ViewController: UIViewController {
             self.lblAño.text = ""
             self.lblRated.text = ""
             self.lblDuracion.text = ""
+            self.lblGenero.text = ""
+            self.Director.text = ""
+            
+            if let dictResultado = response.result.value as? NSDictionary {
+                if let resultado = dictResultado.value(forKey: "Response") as? String {
+                    self.encontrada = resultado
+                }
+                if self.encontrada == "True" {
+                    if let titulo = dictResultado.value(forKey: "Title") as? String {
+                        self.lblTitulo.text = titulo
+                    }
+                    if let año = dictResultado.value(forKey: "Year") as? String {
+                        self.lblAño.text = año
+                    }
+                    if let rated = dictResultado.value(forKey: "Rated") as? String {
+                        self.lblRated.text = rated
+                    }
+                    if let tiempo = dictResultado.value(forKey: "Runtime") as? String {
+                        self.lblDuracion.text = tiempo
+                    }
+                    if let genero = dictResultado.value(forKey: "Genre") as? String {
+                        self.lblGenero.text = genero
+                    }
+                    if let nombredirector = dictResultado.value(forKey: "Director") as? String {
+                        self.Director.text = nombredirector
+                        self.peliculas = ""
+                        self.aiCargar.stopAnimating()
+                    }
+                } else {
+                    self.encontrada = "No se encontró"
+                    self.aiCargar.stopAnimating()
+                }
+            }
         }
     }
     
